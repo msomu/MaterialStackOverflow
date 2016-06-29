@@ -1,4 +1,4 @@
-package in.msomu.materialstackoverflow;
+package in.msomu.materialstackoverflow.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import in.msomu.materialstackoverflow.Const;
+import in.msomu.materialstackoverflow.adapter.FeedAdapter;
+import in.msomu.materialstackoverflow.R;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;

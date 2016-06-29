@@ -1,8 +1,10 @@
-package in.msomu.materialstackoverflow;
+package in.msomu.materialstackoverflow.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import in.msomu.materialstackoverflow.R;
 
 public class SplashActivity extends AppCompatActivity {
 

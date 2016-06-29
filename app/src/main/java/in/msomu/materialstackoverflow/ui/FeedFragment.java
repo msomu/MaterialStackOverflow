@@ -1,10 +1,13 @@
-package in.msomu.materialstackoverflow;
+package in.msomu.materialstackoverflow.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import in.msomu.materialstackoverflow.Const;
+import in.msomu.materialstackoverflow.R;
 
 
 public class FeedFragment extends Fragment {

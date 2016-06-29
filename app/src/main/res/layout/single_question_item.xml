@@ -18,9 +18,10 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:id="@+id/questionTV"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="How to move ChildDrawable in LayerDrawable" />
+                tools:text="How to move ChildDrawable in LayerDrawable" />
         </LinearLayout>
 
         <LinearLayout
@@ -31,6 +32,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                android:id="@+id/upVoteTV"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_arrow_upward_black_24dp"
                 android:drawableStart="@drawable/ic_arrow_upward_black_24dp"
@@ -46,4 +48,10 @@
         app:alignItems="stretch"
         android:id="@+id/flexbox_layout"
         app:flexWrap="wrap"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/timeTv"
+        tools:text="5 mins ago"/>
 </LinearLayout>

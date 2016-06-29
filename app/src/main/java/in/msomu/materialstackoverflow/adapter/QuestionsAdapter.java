@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -38,14 +39,22 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         Question question = questions.get(position);
         holder.flexboxLayout.removeAllViews();
         for (int i = 0; i < question.getTags().length; i++) {
-            ChipView chipView = new ChipView(context);
-            String[] tags = question.getTags();
+            final ChipView chipView = new ChipView(context);
+            final String[] tags = question.getTags();
             chipView.setText(tags[i]);
+            final int finalI = i;
+            chipView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "Tag : "+tags[finalI], Toast.LENGTH_SHORT).show();
+                }
+            });
             holder.flexboxLayout.addView(chipView);
         }
         holder.questionTV.setText(question.getQuestion());
         holder.upVoteTV.setText(String.valueOf(question.getUpvotes()));
         holder.timeTv.setText(String.valueOf(question.getTimeStamp()));
+        holder.usernameTv.setText(String.valueOf(question.getUserName()));
     }
 
     @Override
@@ -58,6 +67,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         TextView questionTV;
         TextView upVoteTV;
         TextView timeTv;
+        TextView usernameTv;
 
         public QuestionsViewHolder(View itemView) {
             super(itemView);
@@ -65,6 +75,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
             questionTV = (TextView) itemView.findViewById(R.id.questionTV);
             upVoteTV = (TextView) itemView.findViewById(R.id.upVoteTV);
             timeTv = (TextView) itemView.findViewById(R.id.timeTv);
+            usernameTv = (TextView) itemView.findViewById(R.id.usernameTv);
         }
     }
 }

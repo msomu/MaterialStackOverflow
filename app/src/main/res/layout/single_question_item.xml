@@ -17,8 +17,8 @@
             android:layout_weight="8">
 
             <TextView
-                android:layout_width="match_parent"
                 android:id="@+id/questionTV"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 tools:text="How to move ChildDrawable in LayerDrawable" />
@@ -31,8 +31,8 @@
             android:gravity="center">
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/upVoteTV"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_arrow_upward_black_24dp"
                 android:drawableStart="@drawable/ic_arrow_upward_black_24dp"
@@ -42,16 +42,31 @@
     </LinearLayout>
 
     <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexbox_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:alignContent="stretch"
         app:alignItems="stretch"
-        android:id="@+id/flexbox_layout"
-        app:flexWrap="wrap"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:id="@+id/timeTv"
-        tools:text="5 mins ago"/>
+        app:flexWrap="wrap" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/timeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dp"
+            tools:text="5 mins ago" />
+
+        <TextView
+            android:id="@+id/usernameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            tools:text="msomu" />
+    </RelativeLayout>
 </LinearLayout>

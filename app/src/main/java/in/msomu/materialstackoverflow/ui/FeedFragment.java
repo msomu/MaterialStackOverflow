@@ -33,7 +33,8 @@ import in.msomu.materialstackoverflow.adapter.QuestionsAdapter;
 public class FeedFragment extends Fragment {
     private static final String TAG = "FeedFragment";
     private String sortOrder;
-    private String urlJsonObj = "https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&site=stackoverflow";
+    private String baseUrl = "https://api.stackexchange.com/2.2/questions?order=desc&sort=";
+    private String baseUrl2 = "&site=stackoverflow";
     private ArrayList<Question> questions = new ArrayList<>();
     private QuestionsAdapter adapter;
 
@@ -56,12 +57,6 @@ public class FeedFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        makeJsonObjectRequest();
-    }
-
     /**
      * Method to make json object request where json response starts wtih {
      */
@@ -69,7 +64,7 @@ public class FeedFragment extends Fragment {
 
         showpDialog();
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, urlJsonObj, "", new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, baseUrl+sortOrder+baseUrl2, "", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, response.toString());
@@ -127,6 +122,7 @@ public class FeedFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             sortOrder = getArguments().getString(Const.SORT_ORDER);
+            makeJsonObjectRequest();
         }
     }
 

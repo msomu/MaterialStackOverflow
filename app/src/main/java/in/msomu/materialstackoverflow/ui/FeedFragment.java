@@ -57,7 +57,7 @@ public class FeedFragment extends Fragment {
 
     private void setRecyclerAdapter(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        QuestionsAdapter adapter = new QuestionsAdapter();
+        QuestionsAdapter adapter = new QuestionsAdapter(getContext());
         recyclerView.setAdapter(adapter);
     }
 }

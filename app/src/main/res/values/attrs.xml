@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="text" format="string" />
+    <declare-styleable name="ChipView">
+        <attr name="text" />
+    </declare-styleable>
+    <declare-styleable name="CustomView">
+        <attr name="text" />
+        <attr name="imageSrc" format="reference" />
+    </declare-styleable>
+</resources>

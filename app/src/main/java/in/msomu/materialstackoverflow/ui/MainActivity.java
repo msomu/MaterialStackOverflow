@@ -47,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         feedAdapter = new FeedAdapter(getSupportFragmentManager());
-        feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_ACTIVITY), "Activity");
-        feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_HOT), "Hot");
-        feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_VOTES), "Votes");
-        feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_CREATION_DATE), "Create");
-        feedAdapter.addFragment(FeedFragment.newInstance(Const.MY_ACTIVITIES), "My Activities");
+        feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_ACTIVITY), getString(R.string.activity));
+        feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_HOT), getString(R.string.hot));
+        feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_VOTES), getString(R.string.votes));
+        feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_CREATION_DATE), getString(R.string.create));
+        feedAdapter.addFragment(FeedFragment.newInstance(Const.MY_ACTIVITIES), getString(R.string.activities));
         viewPager.setAdapter(feedAdapter);
     }
 
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_logout) {
-            Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.loggingout, Toast.LENGTH_SHORT).show();
             PreferencesHelper.setLoginCheck(false);
             startActivity(new Intent(this,SplashActivity.class));
             finish();

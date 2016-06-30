@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">Material StackOverflow</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">@string/app_name</string>
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Logout</string>
+    <string name="activity">Activity</string>
+    <string name="hot">Hot</string>
+    <string name="votes">Votes</string>
+    <string name="create">Create</string>
+    <string name="activities">My Activities</string>
+    <string name="loggingout">Logging out</string>
+    <string name="error_on_network">Error on Network</string>
 </resources>

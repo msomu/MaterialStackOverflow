@@ -95,7 +95,7 @@ public class FeedFragment extends Fragment {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getContext(), "Error on Network", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.error_on_network), Toast.LENGTH_SHORT).show();
                 }
             });
             AppController.getInstance().addToRequestQueue(jsonObjReq);

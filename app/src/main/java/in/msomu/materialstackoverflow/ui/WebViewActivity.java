@@ -173,6 +173,7 @@ public class WebViewActivity extends AppCompatActivity {
         PreferencesHelper.setUserID(UserId);
 
         Intent i = new Intent(WebViewActivity.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         WebViewActivity.this.finish();
     }

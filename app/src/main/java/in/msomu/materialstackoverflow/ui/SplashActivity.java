@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import in.msomu.materialstackoverflow.R;
+import in.msomu.materialstackoverflow.WebViewActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -13,7 +14,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this,WebViewActivity.class));
         finish();
     }
 }

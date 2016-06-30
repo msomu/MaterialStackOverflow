@@ -2,6 +2,7 @@ package in.msomu.materialstackoverflow.utils;
 
 /**
  * Created by msomu on 29/06/16.
+ * Constants used throught the app
  */
 public class Const {
 

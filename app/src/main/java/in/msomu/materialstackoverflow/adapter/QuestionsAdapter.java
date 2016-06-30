@@ -18,22 +18,39 @@ import in.msomu.materialstackoverflow.R;
 
 /**
  * Created by msomu on 29/06/16.
+ * RecylerView.Adapter which is the adapter that will populate the views for each questions and renders it.
  */
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.QuestionsViewHolder> {
     private Context context;
     private ArrayList<Question> questions;
 
+    /**
+     * Constructer for the Adapter
+     * @param context Context of the view so that can be used in the views in the adapter
+     * @param questions the array of questions that is going to be rendered
+     */
     public QuestionsAdapter(Context context, ArrayList<Question> questions) {
         this.context = context;
         this.questions = questions;
     }
 
+    /**
+     * Creates the ViewHolder for each Question
+     * @param parent the parent View
+     * @param viewType this questionViewtype (We use only one view type)
+     * @return the viewholder initated with its view in it
+     */
     @Override
     public QuestionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_question_item, parent, false);
         return new QuestionsViewHolder(v);
     }
 
+    /**
+     * Where every questions content are set
+     * @param holder the viewholder for that view
+     * @param position the position so that we can identify the positon of the question
+     */
     @Override
     public void onBindViewHolder(QuestionsViewHolder holder, int position) {
         Question question = questions.get(position);
@@ -57,11 +74,18 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         holder.usernameTv.setText(String.valueOf(question.getUserName()));
     }
 
+    /**
+     * Total number of questions
+     * @return number of questions
+     */
     @Override
     public int getItemCount() {
         return questions.size();
     }
 
+    /**
+     * View Holder for each single Question
+     */
     public class QuestionsViewHolder extends RecyclerView.ViewHolder {
         FlexboxLayout flexboxLayout;
         TextView questionTV;
@@ -69,6 +93,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         TextView timeTv;
         TextView usernameTv;
 
+        /**
+         * Constructor where the view is initalized
+         * @param itemView Initalized and returned back
+         */
         public QuestionsViewHolder(View itemView) {
             super(itemView);
             flexboxLayout = (FlexboxLayout) itemView.findViewById(R.id.flexbox_layout);

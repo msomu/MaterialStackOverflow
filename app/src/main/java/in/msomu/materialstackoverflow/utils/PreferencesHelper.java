@@ -6,6 +6,7 @@ import in.msomu.materialstackoverflow.AppController;
 
 /**
  * Created by msomu on 30/06/2016.
+ * Prefernce Helper for the whole app
  */
 public class PreferencesHelper {
 

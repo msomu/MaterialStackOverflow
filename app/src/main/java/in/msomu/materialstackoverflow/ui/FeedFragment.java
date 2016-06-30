@@ -103,11 +103,11 @@ public class FeedFragment extends Fragment {
     }
 
     private void hidepDialog() {
-
+        //TODO hide the dialog
     }
 
     private void showpDialog() {
-
+        //TODO show the dialog
     }
 
     private void parseJson(JSONObject response) {
@@ -161,7 +161,7 @@ public class FeedFragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), WebViewActivity.class));
+                startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
         setRecyclerAdapter(recyclerView);

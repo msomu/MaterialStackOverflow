@@ -4,6 +4,7 @@ import android.text.format.DateUtils;
 
 /**
  * Created by msomu on 30/06/16.
+ * Question Model for stack overflow
  */
 public class Question {
     private String question;

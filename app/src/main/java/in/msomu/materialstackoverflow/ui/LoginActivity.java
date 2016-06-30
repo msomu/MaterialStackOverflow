@@ -31,8 +31,10 @@ import in.msomu.materialstackoverflow.utils.PreferencesHelper;
 
 /**
  * Created by msomu on 29/06/2016.
+ * WebView where the user can login
+ * Only suporting Stackoverflow login as of now
  */
-public class WebViewActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private final String clientId = "6136";
     private final String apiKey = "gQJsL7krOvbXkJ0NEI*mWA((";
@@ -53,7 +55,7 @@ public class WebViewActivity extends AppCompatActivity {
         browser = (WebView) findViewById(R.id.webview);
         browser.getSettings().setJavaScriptEnabled(true);
         browser.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        final String url= API_BASE_URL +"?client_id=" + clientId +"&scope=write_access"+"&redirect_uri=" + redirectUri+"";
+        final String url = API_BASE_URL + "?client_id=" + clientId + "&scope=write_access" + "&redirect_uri=" + redirectUri + "";
 
         browser.setWebChromeClient(new WebChromeClient() {
             // Show loading progress in activity's title bar.
@@ -76,7 +78,7 @@ public class WebViewActivity extends AppCompatActivity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Log.d("WebActivity","Auth URL: " + url);
+                Log.d("WebActivity", "Auth URL: " + url);
                 if (url.contains("#access_token")) {
                     return true;
                 }
@@ -86,7 +88,7 @@ public class WebViewActivity extends AppCompatActivity {
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                Log.d("WebActivity","Loading URL: " + url);
+                Log.d("WebActivity", "Loading URL: " + url);
                 progressBar.setVisibility(View.VISIBLE);
                 //setProgressBarIndeterminateVisibility(true);
                 //setTitle(url);
@@ -94,10 +96,10 @@ public class WebViewActivity extends AppCompatActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                Log.d("WebActivity","Loaded URL: " + url);
+                Log.d("WebActivity", "Loaded URL: " + url);
                 if (url.contains("#access_token")) {
 
-                    mProgressDialog = new ProgressDialog(WebViewActivity.this);
+                    mProgressDialog = new ProgressDialog(LoginActivity.this);
                     mProgressDialog.setIndeterminate(true);
                     mProgressDialog.setMessage("Loading...");
                     mProgressDialog.setCancelable(false);
@@ -105,109 +107,64 @@ public class WebViewActivity extends AppCompatActivity {
                     mProgressDialog.show();
 
                     String token_str = url;
-                    Log.d("WebActivity","Token URL: " + token_str);
+                    Log.d("WebActivity", "Token URL: " + token_str);
                     String[] str = token_str.split("access_token=");
-                    Log.d("WebActivity","srt[0]: " + str[0]);
-                    Log.d("WebActivity","srt[1]: " + str[1]);
+                    Log.d("WebActivity", "srt[0]: " + str[0]);
+                    Log.d("WebActivity", "srt[1]: " + str[1]);
                     String token = str[1].substring(0, str[1].length() - 14);
-                    Log.d("WebActivity","token: " + token);
+                    Log.d("WebActivity", "token: " + token);
 
                     makeJsonObjectRequest(token);
-
-//                    //Calling method to get UserId
-//                    RetrofitClient.userIdServices().getUserId("stackoverflow", apiKey, token, new Callback<UserShortInfo>() {
-//                        @Override
-//                        public void success(UserShortInfo info, Response response) {
-//                            if (mProgressDialog.isShowing() && mProgressDialog!=null)
-//                                mProgressDialog.dismiss();
-//
-//                            Log.d("WebActivity","UserId: " + info.getItems().get(0).getUserId());
-//                            finishAct(info.getItems().get(0).getUserId());
-//                        }
-//
-//                        @Override
-//                        public void failure(RetrofitError error) {
-//                            if (mProgressDialog.isShowing() && mProgressDialog!=null)
-//                                mProgressDialog.dismiss();
-//
-//                            String merror = error.getMessage();
-//                            Log.d("WebActivity","merror :" + merror);
-//                            Snackbar.make(browser, merror, Snackbar.LENGTH_LONG)
-//                                    .setAction("Action", null).show();
-//
-//                        }
-//                    });
-
-
-
-
-                    //Intent intent = new Intent();
-                    //intent.putExtra(EXTRA_ACTION_TOKEN_URL, url);
-                    //setResult(Activity.RESULT_OK, intent);
-                    //WebViewActivity.this.finish();
-                    //overridePendingTransition(R.anim.activity_slide_in_left, R.anim.activity_slide_out_left);
                 }
             }
 
         });
 
         browser.loadUrl(url);
-
-        /*Button loginButton = (Button) findViewById(R.id.loginbutton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ///String scope  = " ?scope \"\" ";
-                Intent intent = new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(ServiceGenerator.API_BASE_URL +"?client_id=" + clientId +"?redirect_uri=" + redirectUri+""));
-                startActivity(intent);
-            }
-        });*/
     }
 
-    private void finishAct(String UserId){
+    private void finishAct(String UserId) {
 
         Const.UserId = UserId;
         PreferencesHelper.setLoginCheck(true);
         PreferencesHelper.setUserID(UserId);
 
-        Intent i = new Intent(WebViewActivity.this, MainActivity.class);
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-        WebViewActivity.this.finish();
+        LoginActivity.this.finish();
     }
 
-    public void clearCookies(){
-        CookieSyncManager.createInstance(WebViewActivity.this);
+    public void clearCookies() {
+        CookieSyncManager.createInstance(LoginActivity.this);
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.removeAllCookie();
     }
 
     private void makeJsonObjectRequest(String token) {
-        Log.d("UserID","Trying to get userId");
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, "https://api.stackexchange.com/2.2/me?site=stackoverflow&key="+apiKey+"&access_token="+token, "", new Response.Listener<JSONObject>() {
+        Log.d("UserID", "Trying to get userId");
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, "https://api.stackexchange.com/2.2/me?site=stackoverflow&key=" + apiKey + "&access_token=" + token, "", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("Result", response.toString());
-                if (mProgressDialog.isShowing() && mProgressDialog!=null)
+                if (mProgressDialog.isShowing() && mProgressDialog != null)
                     mProgressDialog.dismiss();
 
                 try {
                     JSONArray items = response.getJSONArray("items");
                     JSONObject item = items.getJSONObject(0);
                     String userId = item.getString("user_id");
-                    Log.d("user_id",userId);
+                    Log.d("user_id", userId);
                     finishAct(userId);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("Result","Parse Error");
+                    Log.e("Result", "Parse Error");
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(WebViewActivity.this, "Error on Network", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Error on Network", Toast.LENGTH_SHORT).show();
             }
         });
         AppController.getInstance().addToRequestQueue(jsonObjReq);

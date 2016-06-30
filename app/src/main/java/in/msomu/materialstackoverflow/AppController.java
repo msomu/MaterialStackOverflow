@@ -2,6 +2,7 @@ package in.msomu.materialstackoverflow;
 
 /**
  * Created by msomu on 30/06/16.
+ * AppController used for making things initalize before app starts
  */
 
 import android.app.Activity;

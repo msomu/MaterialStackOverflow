@@ -11,6 +11,7 @@ import in.msomu.materialstackoverflow.R;
 
 /**
  * Created by msomu on 24/05/16.
+ * Single ChipView (CustomView)
  */
 
 public class ChipView extends LinearLayout {

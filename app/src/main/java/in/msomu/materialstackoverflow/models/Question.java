@@ -1,4 +1,4 @@
-package in.msomu.materialstackoverflow;
+package in.msomu.materialstackoverflow.models;
 
 import android.text.format.DateUtils;
 

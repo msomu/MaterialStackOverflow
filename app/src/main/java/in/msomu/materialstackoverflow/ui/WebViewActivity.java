@@ -1,10 +1,9 @@
-package in.msomu.materialstackoverflow;
+package in.msomu.materialstackoverflow.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import in.msomu.materialstackoverflow.ui.MainActivity;
+import in.msomu.materialstackoverflow.AppController;
+import in.msomu.materialstackoverflow.R;
+import in.msomu.materialstackoverflow.utils.Const;
+import in.msomu.materialstackoverflow.utils.PreferencesHelper;
 
 /**
  * Created by msomu on 29/06/2016.

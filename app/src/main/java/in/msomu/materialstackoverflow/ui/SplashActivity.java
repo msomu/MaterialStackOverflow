@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import in.msomu.materialstackoverflow.R;
-import in.msomu.materialstackoverflow.WebViewActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

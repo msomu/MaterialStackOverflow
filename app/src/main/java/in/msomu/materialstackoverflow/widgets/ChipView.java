@@ -1,4 +1,4 @@
-package in.msomu.materialstackoverflow;
+package in.msomu.materialstackoverflow.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import in.msomu.materialstackoverflow.R;
 
 /**
  * Created by msomu on 24/05/16.

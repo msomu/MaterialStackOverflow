@@ -1,6 +1,8 @@
-package in.msomu.materialstackoverflow;
+package in.msomu.materialstackoverflow.utils;
 
 import android.content.SharedPreferences;
+
+import in.msomu.materialstackoverflow.AppController;
 
 /**
  * Created by msomu on 30/06/2016.

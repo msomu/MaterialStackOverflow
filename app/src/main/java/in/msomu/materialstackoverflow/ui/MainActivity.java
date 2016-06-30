@@ -1,15 +1,12 @@
 package in.msomu.materialstackoverflow.ui;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
-import in.msomu.materialstackoverflow.Const;
+import in.msomu.materialstackoverflow.utils.Const;
 import in.msomu.materialstackoverflow.adapter.FeedAdapter;
 import in.msomu.materialstackoverflow.R;
 
@@ -30,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(feedAdapter);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
         setupViewPager(mViewPager);
     }
     private void setupViewPager(ViewPager viewPager) {

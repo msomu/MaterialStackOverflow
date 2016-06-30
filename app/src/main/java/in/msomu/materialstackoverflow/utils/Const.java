@@ -1,4 +1,4 @@
-package in.msomu.materialstackoverflow;
+package in.msomu.materialstackoverflow.utils;
 
 /**
  * Created by msomu on 29/06/16.

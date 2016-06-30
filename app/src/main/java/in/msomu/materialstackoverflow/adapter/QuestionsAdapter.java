@@ -12,8 +12,8 @@ import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 
-import in.msomu.materialstackoverflow.ChipView;
-import in.msomu.materialstackoverflow.Question;
+import in.msomu.materialstackoverflow.widgets.ChipView;
+import in.msomu.materialstackoverflow.models.Question;
 import in.msomu.materialstackoverflow.R;
 
 /**

@@ -3,7 +3,6 @@ package in.msomu.materialstackoverflow.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
@@ -27,11 +25,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import in.msomu.materialstackoverflow.AppController;
-import in.msomu.materialstackoverflow.Const;
-import in.msomu.materialstackoverflow.PreferencesHelper;
-import in.msomu.materialstackoverflow.Question;
+import in.msomu.materialstackoverflow.utils.Const;
+import in.msomu.materialstackoverflow.utils.PreferencesHelper;
+import in.msomu.materialstackoverflow.models.Question;
 import in.msomu.materialstackoverflow.R;
-import in.msomu.materialstackoverflow.WebViewActivity;
 import in.msomu.materialstackoverflow.adapter.QuestionsAdapter;
 
 
@@ -77,14 +74,14 @@ public class FeedFragment extends Fragment {
 
         if (sortOrder.equals(Const.MY_ACTIVITIES)) {
             if (!TextUtils.isEmpty(PreferencesHelper.getUserID())) {
-                url = baseUrl +"users/"+ PreferencesHelper.getUserID() +"/"+baseUrl1 + baseUrl2 + baseUrl3;
+                url = baseUrl + "users/" + PreferencesHelper.getUserID() + "/" + baseUrl1 + baseUrl2 + baseUrl3;
                 isUserLoggedIn = true;
             } else {
                 Log.e(TAG, "User not logged in");
                 isUserLoggedIn = false;
             }
         } else {
-            url = baseUrl + baseUrl1+ baseUrl2 + sortOrder + baseUrl3;
+            url = baseUrl + baseUrl1 + baseUrl2 + sortOrder + baseUrl3;
         }
         if (!TextUtils.isEmpty(url)) {
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
@@ -144,9 +141,11 @@ public class FeedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            sortOrder = getArguments().getString(Const.SORT_ORDER);
-            makeJsonObjectRequest();
+        if (savedInstanceState == null) {
+            if (getArguments() != null) {
+                sortOrder = getArguments().getString(Const.SORT_ORDER);
+                makeJsonObjectRequest();
+            }
         }
     }
 

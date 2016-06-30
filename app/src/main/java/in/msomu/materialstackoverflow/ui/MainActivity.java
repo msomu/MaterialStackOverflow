@@ -5,10 +5,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import in.msomu.materialstackoverflow.utils.Const;
 import in.msomu.materialstackoverflow.adapter.FeedAdapter;
 import in.msomu.materialstackoverflow.R;
+import in.msomu.materialstackoverflow.utils.PreferencesHelper;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
@@ -35,8 +41,12 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+        if (!TextUtils.isEmpty(PreferencesHelper.getUserID())) {
+
+        }
         setupViewPager(mViewPager);
     }
+
     private void setupViewPager(ViewPager viewPager) {
         feedAdapter = new FeedAdapter(getSupportFragmentManager());
         feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_ACTIVITY), "Activity");
@@ -45,6 +55,26 @@ public class MainActivity extends AppCompatActivity {
         feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_CREATION_DATE), "Create");
         feedAdapter.addFragment(FeedFragment.newInstance(Const.MY_ACTIVITIES), "My Activities");
         viewPager.setAdapter(feedAdapter);
+    }
+
+    // Initiating Menu XML file (menu_main.xml)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (PreferencesHelper.getLoginCheck()) {
+            MenuInflater menuInflater = getMenuInflater();
+            menuInflater.inflate(R.menu.menu_main, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
+            PreferencesHelper.setLoginCheck(false);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -30,6 +30,7 @@ import in.msomu.materialstackoverflow.utils.PreferencesHelper;
 import in.msomu.materialstackoverflow.models.Question;
 import in.msomu.materialstackoverflow.R;
 import in.msomu.materialstackoverflow.adapter.QuestionsAdapter;
+import in.msomu.materialstackoverflow.widgets.DividerItemDecoration;
 
 
 public class FeedFragment extends Fragment {
@@ -73,7 +74,7 @@ public class FeedFragment extends Fragment {
         String url = "";
 
         if (sortOrder.equals(Const.MY_ACTIVITIES)) {
-            if (!TextUtils.isEmpty(PreferencesHelper.getUserID())) {
+            if (PreferencesHelper.getLoginCheck() && !TextUtils.isEmpty(PreferencesHelper.getUserID())) {
                 url = baseUrl + "users/" + PreferencesHelper.getUserID() + "/" + baseUrl1 + baseUrl2 + baseUrl3;
                 isUserLoggedIn = true;
             } else {
@@ -168,6 +169,7 @@ public class FeedFragment extends Fragment {
 
     private void setRecyclerAdapter(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
         adapter = new QuestionsAdapter(getContext(), questions);
         recyclerView.setAdapter(adapter);
         if (sortOrder.equals(Const.MY_ACTIVITIES)) {

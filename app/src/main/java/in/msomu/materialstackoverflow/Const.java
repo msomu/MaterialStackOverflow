@@ -10,6 +10,7 @@ public class Const {
     public static final String SORT_BY_HOT = "hot";
     public static final String SORT_BY_VOTES = "votes";
     public static final String SORT_BY_CREATION_DATE = "creation";
+    public static final String MY_ACTIVITIES = "my_questions";
 
     public static String UserId = "1114338";
 }

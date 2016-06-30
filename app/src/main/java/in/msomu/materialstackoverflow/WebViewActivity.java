@@ -28,7 +28,7 @@ import org.json.JSONObject;
 import in.msomu.materialstackoverflow.ui.MainActivity;
 
 /**
- * Created by Manish on 12/10/2015.
+ * Created by msomu on 29/06/2016.
  */
 public class WebViewActivity extends AppCompatActivity {
 
@@ -167,8 +167,8 @@ public class WebViewActivity extends AppCompatActivity {
     private void finishAct(String UserId){
 
         Const.UserId = UserId;
-//        PreferencesHelper.setLoginCheck(true);
-//        PreferencesHelper.setUserID(UserId);
+        PreferencesHelper.setLoginCheck(true);
+        PreferencesHelper.setUserID(UserId);
 
         Intent i = new Intent(WebViewActivity.this, MainActivity.class);
         startActivity(i);

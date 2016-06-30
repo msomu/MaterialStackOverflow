@@ -4,7 +4,9 @@ package in.msomu.materialstackoverflow;
  * Created by msomu on 30/06/16.
  */
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -23,6 +25,7 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        preferences = mInstance.getSharedPreferences("AppPreferences", Activity.MODE_PRIVATE);
     }
 
     public static synchronized AppController getInstance() {
@@ -36,6 +39,13 @@ public class AppController extends Application {
 
         return mRequestQueue;
     }
+
+    private static SharedPreferences preferences;
+
+    public static SharedPreferences getPreferences() {
+        return preferences;
+    }
+
 
     public <T> void addToRequestQueue(Request<T> req, String tag) {
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);

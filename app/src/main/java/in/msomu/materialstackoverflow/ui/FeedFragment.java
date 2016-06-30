@@ -1,14 +1,17 @@
 package in.msomu.materialstackoverflow.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,18 +28,24 @@ import java.util.ArrayList;
 
 import in.msomu.materialstackoverflow.AppController;
 import in.msomu.materialstackoverflow.Const;
+import in.msomu.materialstackoverflow.PreferencesHelper;
 import in.msomu.materialstackoverflow.Question;
 import in.msomu.materialstackoverflow.R;
+import in.msomu.materialstackoverflow.WebViewActivity;
 import in.msomu.materialstackoverflow.adapter.QuestionsAdapter;
 
 
 public class FeedFragment extends Fragment {
     private static final String TAG = "FeedFragment";
     private String sortOrder;
-    private String baseUrl = "https://api.stackexchange.com/2.2/questions?order=desc&sort=";
-    private String baseUrl2 = "&site=stackoverflow";
+    private String baseUrl = "https://api.stackexchange.com/2.2/";
+    private String baseUrl1 = "questions";
+    private String baseUrl2 = "?order=desc&sort";
+    private String baseUrl3 = "&site=stackoverflow";
     private ArrayList<Question> questions = new ArrayList<>();
     private QuestionsAdapter adapter;
+    private boolean isUserLoggedIn = false;
+    private TextView login;
 
     public FeedFragment() {
         // Required empty public constructor
@@ -64,19 +73,34 @@ public class FeedFragment extends Fragment {
 
         showpDialog();
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, baseUrl+sortOrder+baseUrl2, "", new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, response.toString());
-                parseJson(response);
+        String url = "";
+
+        if (sortOrder.equals(Const.MY_ACTIVITIES)) {
+            if (!TextUtils.isEmpty(PreferencesHelper.getUserID())) {
+                url = baseUrl +"users/"+ PreferencesHelper.getUserID() +"/"+baseUrl1 + baseUrl2 + baseUrl3;
+                isUserLoggedIn = true;
+            } else {
+                Log.e(TAG, "User not logged in");
+                isUserLoggedIn = false;
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Error on Network", Toast.LENGTH_SHORT).show();
-            }
-        });
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
+        } else {
+            url = baseUrl + baseUrl1+ baseUrl2 + sortOrder + baseUrl3;
+        }
+        if (!TextUtils.isEmpty(url)) {
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d(TAG, response.toString());
+                    parseJson(response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "Error on Network", Toast.LENGTH_SHORT).show();
+                }
+            });
+            AppController.getInstance().addToRequestQueue(jsonObjReq);
+        }
     }
 
     private void hidepDialog() {
@@ -132,13 +156,26 @@ public class FeedFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.feedRecylerView);
+        login = (TextView) rootView.findViewById(R.id.login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), WebViewActivity.class));
+            }
+        });
         setRecyclerAdapter(recyclerView);
         return rootView;
     }
 
     private void setRecyclerAdapter(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new QuestionsAdapter(getContext(),questions);
+        adapter = new QuestionsAdapter(getContext(), questions);
         recyclerView.setAdapter(adapter);
+        if (sortOrder.equals(Const.MY_ACTIVITIES)) {
+            if (!isUserLoggedIn) {
+                recyclerView.setVisibility(View.GONE);
+                login.setVisibility(View.VISIBLE);
+            }
+        }
     }
 }

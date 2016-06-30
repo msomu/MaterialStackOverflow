@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_HOT), "Hot");
         feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_VOTES), "Votes");
         feedAdapter.addFragment(FeedFragment.newInstance(Const.SORT_BY_CREATION_DATE), "Create");
+        feedAdapter.addFragment(FeedFragment.newInstance(Const.MY_ACTIVITIES), "My Activities");
         viewPager.setAdapter(feedAdapter);
     }
 

@@ -14,7 +14,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        startActivity(new Intent(this,WebViewActivity.class));
+        startActivity(new Intent(this,MainActivity.class));
         finish();
     }
 }

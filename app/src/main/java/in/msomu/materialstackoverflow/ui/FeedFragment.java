@@ -35,10 +35,10 @@ import in.msomu.materialstackoverflow.widgets.DividerItemDecoration;
 
 public class FeedFragment extends Fragment {
     private static final String TAG = "FeedFragment";
-    private String sortOrder;
+    private String sortOrder = "";
     private String baseUrl = "https://api.stackexchange.com/2.2/";
     private String baseUrl1 = "questions";
-    private String baseUrl2 = "?order=desc&sort";
+    private String baseUrl2 = "?order=desc&sort=";
     private String baseUrl3 = "&site=stackoverflow";
     private ArrayList<Question> questions = new ArrayList<>();
     private QuestionsAdapter adapter;
@@ -85,6 +85,7 @@ public class FeedFragment extends Fragment {
             url = baseUrl + baseUrl1 + baseUrl2 + sortOrder + baseUrl3;
         }
         if (!TextUtils.isEmpty(url)) {
+            Log.d(TAG,"Pinging url : "+url);
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {

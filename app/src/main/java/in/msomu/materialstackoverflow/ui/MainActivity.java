@@ -1,5 +1,6 @@
 package in.msomu.materialstackoverflow.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -41,9 +42,6 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-        if (!TextUtils.isEmpty(PreferencesHelper.getUserID())) {
-
-        }
         setupViewPager(mViewPager);
     }
 
@@ -72,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_logout) {
             Toast.makeText(this, "Logging out", Toast.LENGTH_SHORT).show();
             PreferencesHelper.setLoginCheck(false);
+            startActivity(new Intent(this,SplashActivity.class));
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

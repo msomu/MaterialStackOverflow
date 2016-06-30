@@ -36,7 +36,7 @@ import in.msomu.materialstackoverflow.utils.PreferencesHelper;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private final String clientId = "7410";
+    private final String clientId = "6136";
     private final String apiKey = "gQJsL7krOvbXkJ0NEI*mWA((";
     private final String redirectUri = "https://stackexchange.com/oauth/login_success";
     public static String EXTRA_ACTION_TOKEN_URL = "TokenUrl";

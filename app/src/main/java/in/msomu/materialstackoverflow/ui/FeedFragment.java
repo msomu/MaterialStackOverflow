@@ -47,6 +47,7 @@ public class FeedFragment extends Fragment {
     private TextView login;
     private int pageNumber = 1;
     private boolean hasMore = false;
+    private boolean errorOnNetwrok = false;
 
     public FeedFragment() {
         // Required empty public constructor
@@ -94,11 +95,13 @@ public class FeedFragment extends Fragment {
                 public void onResponse(JSONObject response) {
                     Log.d(TAG, response.toString());
                     parseJson(response);
+                    errorOnNetwrok = false;
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getContext(), getResources().getString(R.string.error_on_network), Toast.LENGTH_SHORT).show();
+                    errorOnNetwrok = true;
                 }
             });
             AppController.getInstance().addToRequestQueue(jsonObjReq);
@@ -154,7 +157,7 @@ public class FeedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null || errorOnNetwrok) {
             if (getArguments() != null) {
                 sortOrder = getArguments().getString(Const.SORT_ORDER);
                 makeJsonObjectRequest();

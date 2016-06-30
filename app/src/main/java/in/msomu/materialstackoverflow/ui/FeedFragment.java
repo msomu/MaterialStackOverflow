@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import in.msomu.materialstackoverflow.AppController;
 import in.msomu.materialstackoverflow.utils.Const;
+import in.msomu.materialstackoverflow.utils.EndlessScrollListener;
 import in.msomu.materialstackoverflow.utils.PreferencesHelper;
 import in.msomu.materialstackoverflow.models.Question;
 import in.msomu.materialstackoverflow.R;
@@ -44,6 +45,8 @@ public class FeedFragment extends Fragment {
     private QuestionsAdapter adapter;
     private boolean isUserLoggedIn = false;
     private TextView login;
+    private int pageNumber = 1;
+    private boolean hasMore = false;
 
     public FeedFragment() {
         // Required empty public constructor
@@ -75,17 +78,17 @@ public class FeedFragment extends Fragment {
 
         if (sortOrder.equals(Const.MY_ACTIVITIES)) {
             if (PreferencesHelper.getLoginCheck() && !TextUtils.isEmpty(PreferencesHelper.getUserID())) {
-                url = baseUrl + "users/" + PreferencesHelper.getUserID() + "/" + baseUrl1 + baseUrl2 + baseUrl3;
+                url = baseUrl + "users/" + PreferencesHelper.getUserID() + "/" + baseUrl1 + baseUrl2 + baseUrl3 + "&page=" + pageNumber;
                 isUserLoggedIn = true;
             } else {
                 Log.e(TAG, "User not logged in");
                 isUserLoggedIn = false;
             }
         } else {
-            url = baseUrl + baseUrl1 + baseUrl2 + sortOrder + baseUrl3;
+            url = baseUrl + baseUrl1 + baseUrl2 + sortOrder + baseUrl3 + "&page=" + pageNumber;
         }
         if (!TextUtils.isEmpty(url)) {
-            Log.d(TAG,"Pinging url : "+url);
+            Log.d(TAG, "Pinging url : " + url);
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, url, "", new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -111,10 +114,13 @@ public class FeedFragment extends Fragment {
     }
 
     private void parseJson(JSONObject response) {
-        questions.clear();
+        if (pageNumber == 1) {
+            questions.clear();
+        }
         try {
             // Parsing json object response
             // response will be a json object
+            hasMore = response.getBoolean("has_more");
             JSONArray items = response.getJSONArray("items");
             for (int i = 0; i < items.length(); i++) {
                 JSONObject item = items.getJSONObject(i);
@@ -132,6 +138,11 @@ public class FeedFragment extends Fragment {
                 questions.add(question);
             }
             adapter.notifyDataSetChanged();
+
+            //Just to make the user aware of more contents loaded toasting once
+            if(pageNumber==2){
+                Toast.makeText(getContext(), getResources().getString(R.string.fetched_more_questions), Toast.LENGTH_SHORT).show();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
 
@@ -169,8 +180,9 @@ public class FeedFragment extends Fragment {
     }
 
     private void setRecyclerAdapter(RecyclerView recyclerView) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
         adapter = new QuestionsAdapter(getContext(), questions);
         recyclerView.setAdapter(adapter);
         if (sortOrder.equals(Const.MY_ACTIVITIES)) {
@@ -179,5 +191,16 @@ public class FeedFragment extends Fragment {
                 login.setVisibility(View.VISIBLE);
             }
         }
+        recyclerView.addOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                if (hasMore) {
+                    pageNumber++;
+                    makeJsonObjectRequest();
+                }else{
+                    Toast.makeText(getContext(), getResources().getString(R.string.no_more_questions), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

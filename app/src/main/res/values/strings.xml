@@ -10,4 +10,6 @@
     <string name="activities">My Activities</string>
     <string name="loggingout">Logging out</string>
     <string name="error_on_network">Error on Network</string>
+    <string name="no_more_questions">No more questions on this tab</string>
+    <string name="fetched_more_questions">Fetched more questions keep scrolling to view more</string>
 </resources>
